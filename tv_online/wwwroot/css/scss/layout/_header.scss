@@ -1,0 +1,131 @@
+﻿@import "../base/color.scss";
+
+.header-menu, .bg-azjav, .navbar-azjav {
+    /*height: 80px;*/
+    background-color: $head-background;
+    padding: 0 60px;
+    /*display: flex;
+    align-items: center;
+    padding: 0 60px;*/
+    .nav-item {
+        padding-top: 5px;
+    }
+
+    .nav-item:first-child {
+        /*margin-left: 30px;*/
+    }
+
+    .navbar-nav {
+        .nav-link, .active > .nav-link, .nav-link.active, .nav-link.show, .show > .nav-link {
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            color: $head_menu_text;
+        }
+
+        .dropdown-menu {
+            background: $head-background;
+        }
+
+        .dropdown-item {
+            font-family: 'Oswald', sans-serif;
+            display: block;
+            width: 100%;
+            padding: .25rem 1.5rem;
+            clear: both;
+            font-weight: 400;
+            color: $head_menu_text;
+            text-align: inherit;
+            white-space: nowrap;
+            background-color: transparent;
+            border: 0;
+            font-size: 20px;
+        }
+    }
+
+    .navbar-toggler {
+        border: 1px solid #9CAAC6;
+
+        .navbar-toggler-icon {
+            i {
+                color: #9CAAC6;
+                padding-top: 5px;
+            }
+            /*background-image: url("~/dist/img/header/download.svg");*/
+        }
+    }
+    /*.menu-item, .menu-item a {
+        font-family: 'Oswald', sans-serif;
+        font-size: 24px;
+        color: $head_menu_text;
+        margin: 0 5px;
+    }*/
+    /*.dropdown-menu {
+        background-color: $head-background;
+    }
+
+    .dropdown-menu > li > a {
+        color: $head_menu_text;
+    }*/
+}
+
+.logo-text {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 36px;
+    padding-top: 8px;
+    float: left;
+    display: flex;
+
+    .logo-color-1 {
+        color: $logo-color-1;
+    }
+
+    .logo-color-2 {
+        color: $logo-color-2;
+    }
+
+    .logo-color-a {
+        color: #CC3333;
+    }
+
+    .logo-color-z {
+        color: #009999;
+    }
+
+    .logo-img {
+        height: 46px;
+        width: auto;
+    }
+}
+
+#search-box {
+    margin-top: 15px;
+
+    .search-textbox {
+        border: 1px solid white;
+    }
+}
+
+/*.header-menu .menu-item:hover {
+    background: transparent !important;
+}*/
+/*.nav > li > a:focus, .nav > li > a:hover{
+    background: transparent;
+    background-color: transparent;
+    color: white;
+}
+
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+    background: transparent;
+    background-color: transparent;
+    color: white;
+}
+
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+    background: transparent;
+    background-color: transparent;
+    color: white;
+}*/
+
+/*.bg-azjav {
+    background-color: #2D3956 !important;
+}*/

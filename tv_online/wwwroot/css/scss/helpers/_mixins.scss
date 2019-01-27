@@ -1,0 +1,94 @@
+﻿$list-engine: -webkit, -moz, -ms, -o;
+
+@mixin transition($args...) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+}
+
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes
+    $animation-name
+
+{
+    @content;
+}
+
+@-moz-keyframes
+$animation-name
+
+{
+    @content;
+}
+
+@-ms-keyframes
+$animation-name
+
+{
+    @content;
+}
+
+@-o-keyframes
+$animation-name
+
+{
+    @content;
+}
+
+@keyframes
+$animation-name
+
+{
+    @content;
+}
+
+}
+
+@mixin animation($str) {
+    -webkit-animation: #{$str};
+    -moz-animation: #{$str};
+    -ms-animation: #{$str};
+    -o-animation: #{$str};
+    animation: #{$str};
+}
+
+@mixin transform($str) {
+    -webkit-transform: #{$str};
+    -moz-transform: #{$str};
+    -ms-transform: #{$str};
+    -o-transform: #{$str};
+    transform: #{$str};
+}
+
+@mixin align-content($arg) {
+    -ms-align-content: $arg;
+    -webkit-align-content: $arg;
+    align-content: $arg;
+}
+
+@mixin display-flex() {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    /*display: -moz-box;*/
+}
+
+@mixin display-inline-flex() {
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+}
+
+@mixin flex-align-items($arg) {
+    -webkit-align-items: $arg;
+    align-items: $arg;
+}
+
+@mixin text-overflow($arg){
+    -ms-text-overflow: $arg;
+    -o-text-overflow: $arg;
+    text-overflow: $arg;
+}

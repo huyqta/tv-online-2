@@ -1,0 +1,24 @@
+﻿@import "../base/color.scss";
+
+.footer-break-line {
+    height: 30px;
+    background-color: $head-background;
+    opacity: 0.9;
+}
+
+.footer-content {
+    font-family: 'Coiny', cursive;
+    background-color: $head-background;
+    color: white;
+    padding: 0 60px;
+    padding-bottom: 15px;
+
+    a {
+        font-family: Arial;
+        color: $head_menu_text;
+
+        &:hover {
+            color: white;
+        }
+    }
+}
