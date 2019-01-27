@@ -1,24 +1,44 @@
-﻿@model tv_online.Models.TbChannel;
+﻿@model WatchTvModel;
 @inject tv_online.Models.TvOnlineContext context;
 
 @{
-    var listChannels = context.TbChannel.Where(c => c.ShortCode == Model.ShortCode).ToList();
+    var listChannels = context.TbChannel.Where(c => c.ShortCode == Model.Code).ToList();
 }
-<div class="text-center">
-    <h1 class="display-4">@Model.Channel</h1>
-    @for (var i = 1; i <= listChannels.Count; i++)
-    {
-        var url = listChannels[i - 1].StreamUrl;
-        <button value="@url" class="btn btn-warning btn-link-stream">Link @i</button>
-    }
-
-    <video class="player-style" id="player1"></video>
+<div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4">@Model.Code</h1>
+            @*<input id="watch-code" type="hidden" value="@context.TbChannel.Where(c => c.ShortCode == Model.Code).FirstOrDefault().StreamUrl" />*@
+            <input id="watch-code" type="hidden" value="@Model.Url" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 center-block">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    @for (var i = 1; i <= Model.TotalUrl; i++)
+                    {
+                        //var url = listChannels[i - 1].StreamUrl;
+                        <button type="button" value="@i" class="btn btn-warning btn-link-stream">Link @i</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12 center-block" align="center">
+            <video class="player-style" id="player1"></video>
+        </div>
+    </div>
 </div>
+
 <script>
     $(function () {
         //selectLink();
         var defaultUrl = $('.btn-link-stream').first().val();
-        selectLink(defaultUrl);
+        var streamUrl = $('#watch-code').val();
+        InitPlayer(streamUrl);
 
         $('.btn-link-stream').on('click', function () {
             $('#player1').html();
@@ -27,7 +47,8 @@
         })
     });
 
-    function selectLink(url) {
+    function InitPlayer(url) {
+        console.log(url);
         $('#player1').mediaelementplayer({
             //// if the <video width> is not specified, this is the default
             //defaultVideoWidth: 480,
@@ -50,12 +71,58 @@
             features: ['playpause', 'backlight', 'volume'],
             success: function (mediaElement, domObject) {
                 var sources = [
-                    { src: url, type: 'application/x-mpegURL' },
+                    {
+                        src: url, type: 'application/x-mpegURL'
+                    },
                 ];
                 mediaElement.setSrc(sources);
                 mediaElement.load();
                 mediaElement.play();
             }
         });
+
+    }
+
+    function selectLink(code, index) {
+        var url = "/Home/Watch/" + code + "/" + index;
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function (result) {
+                console.log(result);
+                $('#player1').mediaelementplayer({
+                    //// if the <video width> is not specified, this is the default
+                    //defaultVideoWidth: 480,
+                    //// if the <video height> is not specified, this is the default
+                    //defaultVideoHeight: 270,
+                    //// if set, overrides <video width>
+                    //videoWidth: 480,
+                    //// if set, overrides <video height>
+                    //videoHeight: 270,
+                    stretching: 'responsive',
+                    // enables Flash and Silverlight to resize to content size
+                    enableAutosize: true,
+                    // force iPad's native controls
+                    iPadUseNativeControls: false,
+                    // force iPhone's native controls
+                    iPhoneUseNativeControls: false,
+                    // force Android's native controls
+                    AndroidUseNativeControls: false,
+                    // add desired features in order
+                    features: ['playpause', 'backlight', 'volume'],
+                    success: function (mediaElement, domObject) {
+                        var sources = [
+                            {
+                                src: result.Url, type: 'application/x-mpegURL'
+                            },
+                        ];
+                        mediaElement.setSrc(sources);
+                        mediaElement.load();
+                        mediaElement.play();
+                    }
+                });
+            }
+        })
+
     };
 </script>

@@ -18,8 +18,9 @@
                     var channels = Model.Where(c => c.Country == country).Select(c => c.ShortCode).Distinct();
                     foreach (var channel in channels)
                     {
-                        var url = Url.Content("Watch/" + channel);
-                        <li class="list-group-item"><a asp-action="Watch" asp-controller="Home" asp-route-code="@channel">@channel</a></li>
+                        var url = Url.Content("/channel/" + channel + "/1");
+                        @*<li class="list-group-item"><a asp-action="Watch" asp-controller="Home" asp-route-code="@channel">@channel</a></li>*@
+                        <li class="list-group-item"><a href="@url">@channel</a></li>
                     }
                 }
             </ul>

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup><!--<ProjectReference Include="..\Movie.Services\Movie.Services.csproj" />-->
+  
+    <Compile Remove="CrawlSites\JavforMe.cs" />
+    <Compile Remove="CrawlSites\PhimMoi.cs" />
+    <Compile Remove="SupportScripts\RandomViewAndLike.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.8.11" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="Titanium.Web.Proxy" Version="3.0.878" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SupportScripts\" />
+  </ItemGroup>
+</Project>

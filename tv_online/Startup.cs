@@ -58,7 +58,9 @@ namespace tv_online
             app.UseMvc(routes =>
             {
                 var rewrite = new RewriteOptions()
-                .AddRewrite(@"channel/(.*)", "Home/Watch?code=$1", skipRemainingRules: false);
+                .AddRewrite(@"channel/(.*)/(\d+)", "Home/Watch?code=$1&link=$2", skipRemainingRules: false);
+
+                app.UseRewriter(rewrite);
 
                 routes.MapRoute(
                     name: "default",
