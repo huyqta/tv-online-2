@@ -2,7 +2,7 @@
 @inject tv_online.Models.TvOnlineContext context;
 
 @{
-    if (Model != null && Model.Url != string.Empty)
+    if (Model != null && !string.IsNullOrWhiteSpace(Model.Url))
     {
         //var listChannels = context.TbChannel.Where(c => c.ShortCode == Model.Code).ToList();
         <div>

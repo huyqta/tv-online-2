@@ -12,25 +12,18 @@
 
         @foreach (var country in countries)
         {
-            <ul class="list-group row">
-                <li class="list-group-item col-md-6">Row1</li>
-                <li class="list-group-item col-md-6">Row2</li>
-                <li class="list-group-item col-md-6">Row3</li>
-                <li class="list-group-item col-md-6">Row4</li>
-                <li class="list-group-item col-md-6">Row5</li>
-            </ul>
-            <ul class="list-group list-group-flush row">
-                <li class="list-group-item list-group-item-primary">@country</li>
+            <ul class="list-unstyled row">
+                @*<li class="list-group-item list-group-item-primary">@country</li>*@
                 @{
-                    var channels = Model.Where(c => c.Country == country).Select(c => new { name = c.Channel, code = c.ShortCode, image = c.LogoUrl }).Distinct().OrderBy(c=>c.name);
+                    var channels = Model.Where(c => c.Country == country).Select(c => new { name = c.Channel, code = c.ShortCode, image = c.LogoUrl }).Distinct().OrderBy(c => c.name);
                     foreach (var channel in channels)
                     {
                         var url = Url.Content("/channel/" + channel.code + "/1");
                         @*<li class="list-group-item"><a asp-action="Watch" asp-controller="Home" asp-route-code="@channel">@channel</a></li>*@
-                        <li class="list-group-item col-xs-3"><a href="@url"><img class="logo_channel" src="@channel.image" alt="@channel.name" /></a></li>
+                        <li class="list-group-item col-sm-6"><a href="@url"><img class="logo_channel" src="@channel.image" alt="@channel.name" /></a></li>
                     }
                 }
             </ul>
-                    }
+        }
     </div>
 </div>
