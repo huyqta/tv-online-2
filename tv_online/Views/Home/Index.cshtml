@@ -15,12 +15,12 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item list-group-item-primary">@country</li>
                 @{
-                    var channels = Model.Where(c => c.Country == country).Select(c => c.ShortCode).Distinct();
+                    var channels = Model.Where(c => c.Country == country).Select(c => new { name = c.Channel, code = c.ShortCode, image = c.LogoUrl }).Distinct();
                     foreach (var channel in channels)
                     {
-                        var url = Url.Content("/channel/" + channel + "/1");
+                        var url = Url.Content("/channel/" + channel.code + "/1");
                         @*<li class="list-group-item"><a asp-action="Watch" asp-controller="Home" asp-route-code="@channel">@channel</a></li>*@
-                        <li class="list-group-item"><a href="@url">@channel</a></li>
+                        <li class="list-group-item"><a href="@url"><img class="logo_channel" src="@channel.image" alt="@channel.name" /></a></li>
                     }
                 }
             </ul>

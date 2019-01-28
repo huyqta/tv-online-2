@@ -2,36 +2,48 @@
 @inject tv_online.Models.TvOnlineContext context;
 
 @{
-    var listChannels = context.TbChannel.Where(c => c.ShortCode == Model.Code).ToList();
-}
-<div>
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <h1 class="display-4">@Model.Code</h1>
-            @*<input id="watch-code" type="hidden" value="@context.TbChannel.Where(c => c.ShortCode == Model.Code).FirstOrDefault().StreamUrl" />*@
-            <input id="watch-code" type="hidden" value="@Model.Url" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 center-block">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group mr-2" role="group" aria-label="First group">
-                    @for (var i = 1; i <= Model.TotalUrl; i++)
-                    {
-                        //var url = listChannels[i - 1].StreamUrl;
-                        <button type="button" value="@i" class="btn btn-warning btn-link-stream">Link @i</button>
-                    }
+    if (Model != null && Model.Url != string.Empty)
+    {
+        //var listChannels = context.TbChannel.Where(c => c.ShortCode == Model.Code).ToList();
+        <div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="display-4">@Model.Code</h1>
+                    @*<input id="watch-code" type="hidden" value="@context.TbChannel.Where(c => c.ShortCode == Model.Code).FirstOrDefault().StreamUrl" />*@
+                    <input id="watch-code" type="hidden" value="@Model.Url" />
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-md-12 center-block">
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                            @for (var i = 1; i <= Model.TotalUrl; i++)
+                            {
+                                //var url = listChannels[i - 1].StreamUrl;
+                                <button type="button" value="@i" class="btn btn-warning btn-link-stream">Link @i</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            <br />
+            <div class="row">
+                <div class="col-md-12 center-block" align="center">
+                    <video class="player-style" id="player1"></video>
                 </div>
             </div>
         </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-12 center-block" align="center">
-            <video class="player-style" id="player1"></video>
+
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            The channel is not available now! Please come back and try again later!
         </div>
-    </div>
-</div>
+
+    }
+}
+
 
 <script>
     $(function () {

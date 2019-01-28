@@ -11,5 +11,8 @@ namespace tv_online.Models
         public string Country { get; set; }
         public string Language { get; set; }
         public string ShortCode { get; set; }
+        public string GetlinkUrl { get; set; }
+        public int HasStaticStreamUrl { get; set; }
+        public string LogoUrl { get; set; }
     }
 }

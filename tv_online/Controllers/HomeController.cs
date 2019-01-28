@@ -32,10 +32,37 @@ namespace tv_online.Controllers
             Regex rx = new Regex(@"(?<=link=\[)(.*?)(?=\];)");
             MatchCollection matches = rx.Matches(script);
             // var listUrls = matches[0].Value.Split(",");
+            if (matches.Count == 0) return View();
             var listUrls = matches[0].Value.Split(",").Where(l => l.Contains("http")).ToList();
+            if (listUrls.Count == 0) return View();
             if (listUrls.Count() >= link && link != 0)
             {
-                var urlRqst = listUrls[link.Value].Replace("'", "");
+                foreach (var url in listUrls)
+                {
+                    var urlRqst = url.Replace("'", "");
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlRqst);
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                    using (Stream stream = response.GetResponseStream())
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        var streamUrl = reader.ReadToEnd();
+                        if (streamUrl.Contains("http"))
+                        {
+                            model = new WatchTvModel()
+                            {
+                                TotalUrl = listUrls.Count,
+                                Url = streamUrl,
+                                Code = code
+                            };
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
+                    }
+                }
+                //var urlRqst = listUrls[link.Value].Replace("'", "");
                 //if (urlRqst.Contains("id.php"))
                 //{
                 //    urlRqst = urlRqst.Replace("id.php", "http://ap.tivi12h.net/next.php");
@@ -44,19 +71,7 @@ namespace tv_online.Controllers
                 //{
                 //    urlRqst = urlRqst.Replace("vc.php", "http://ap.tivi12h.net/next.php");
                 //}
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlRqst);
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                using (Stream stream = response.GetResponseStream())
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    model = new WatchTvModel()
-                    {
-                        TotalUrl = listUrls.Count,
-                        Url = reader.ReadToEnd(),
-                        Code = code
-                    };
-                    
-                }
+                
             }
             //var textFromFile = (new WebClient()).DownloadString(model.Url);
             //var urls = textFromFile.Split("http");

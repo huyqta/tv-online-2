@@ -28,7 +28,7 @@ namespace tv_online.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
 
             modelBuilder.Entity<TbChannel>(entity =>
             {
@@ -49,9 +49,25 @@ namespace tv_online.Models
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.Property(e => e.GetlinkUrl)
+                    .IsRequired()
+                    .HasColumnName("getlink_url")
+                    .HasMaxLength(2000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.HasStaticStreamUrl)
+                    .HasColumnName("has_static_stream_url")
+                    .HasColumnType("int(1)")
+                    .HasDefaultValueSql("1");
+
                 entity.Property(e => e.Language)
                     .HasColumnName("language")
                     .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LogoUrl)
+                    .HasColumnName("logo_url")
+                    .HasMaxLength(2000)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ShortCode)
