@@ -25,16 +25,23 @@ namespace tv_online.Controllers
         
         public IActionResult Watch(string code, int? link = 1)
         {
+            var channel = context.TbChannel.Where(c => c.ShortCode == code).FirstOrDefault();
             WatchTvModel model = new WatchTvModel();
             var web = new HtmlWeb();
-            var htmlDoc = web.Load(string.Format(captureUrl, code));
+            var htmlDoc = web.Load(string.Format(channel.GetlinkUrl, code));
             var script = htmlDoc.DocumentNode.InnerText;
             Regex rx = new Regex(@"(?<=link=\[)(.*?)(?=\];)");
             MatchCollection matches = rx.Matches(script);
             // var listUrls = matches[0].Value.Split(",");
-            if (matches.Count == 0) return View();
+            if (matches.Count == 0)
+            {
+                return View();
+            }
             var listUrls = matches[0].Value.Split(",").Where(l => l.Contains("http")).ToList();
-            if (listUrls.Count == 0) return View();
+            if (listUrls.Count == 0)
+            {
+                return View();
+            }
             if (listUrls.Count() >= link && link != 0)
             {
                 foreach (var url in listUrls)
@@ -54,6 +61,7 @@ namespace tv_online.Controllers
                                 Url = streamUrl,
                                 Code = code
                             };
+                            return View(model);
                         }
                         else
                         {
