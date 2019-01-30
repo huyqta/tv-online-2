@@ -15,6 +15,7 @@ namespace tv_online.Controllers
     {
         TvOnlineContext context = new TvOnlineContext();
         string captureUrl = "http://m.tivi12h.net/{0}.php";
+        //string captureUrl = "http://m.xemtvhd.com/vtv6.php";
 
         public IActionResult Index()
         {
@@ -46,7 +47,12 @@ namespace tv_online.Controllers
             {
                 foreach (var url in listUrls)
                 {
+                    
                     var urlRqst = url.Replace("'", "");
+
+                    var client = new WebClient();
+                    var text = client.DownloadString(urlRqst);
+
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlRqst);
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                     using (Stream stream = response.GetResponseStream())
@@ -90,6 +96,20 @@ namespace tv_online.Controllers
             //context.Entry<TbChannel>(channel).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             //context.SaveChanges();
             //var model = context.TbChannel.FirstOrDefault(c => c.ShortCode == code);
+            if (string.IsNullOrWhiteSpace(model.Url))
+            {
+                foreach (var url in channel.StreamUrl.Split("|"))
+                {
+                    if (ValidateM3U8(url))
+                    {
+                        model.Url = url;
+                        return View(model);
+                    }
+                    else continue;
+                    
+                }
+                model.Url = channel.StreamUrl;
+            }
             return View(model);
         }
 
@@ -102,6 +122,24 @@ namespace tv_online.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private bool ValidateM3U8(string url)
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "HEAD";
+                var response = (HttpWebResponse)request.GetResponse();
+                var success = response.StatusCode == HttpStatusCode.OK && response.ContentLength > 0;
+
+                if (success) return true;
+                else return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

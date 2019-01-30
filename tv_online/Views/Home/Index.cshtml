@@ -8,7 +8,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-12">
 
         @foreach (var country in countries)
         {
@@ -20,7 +20,7 @@
                     {
                         var url = Url.Content("/channel/" + channel.code + "/1");
                         @*<li class="list-group-item"><a asp-action="Watch" asp-controller="Home" asp-route-code="@channel">@channel</a></li>*@
-                        <li class="list-group-item col-sm-6"><a href="@url"><img class="logo_channel" src="@channel.image" alt="@channel.name" /></a></li>
+                        <li class="list-group-item col-sm-2"><a href="@url"><img class="logo_channel" src="@channel.image" alt="@channel.name" /></a></li>
                     }
                 }
             </ul>
