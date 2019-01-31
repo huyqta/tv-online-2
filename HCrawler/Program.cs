@@ -15,7 +15,7 @@ namespace HCrawler
             try
             {
                 TvCrawler tv = new TvCrawler();
-                tv.SiteUrl = "http://m.tivi12h.net/vtv4-4.php";
+                tv.SiteUrl = "http://www.xemtvhd.com/";
                 tv.CrawlPage(0);
                 
                 //PhimMoi me = new PhimMoi();

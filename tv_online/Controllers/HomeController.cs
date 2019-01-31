@@ -8,6 +8,7 @@ using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 using System.Net;
 using System.IO;
+using RestSharp;
 
 namespace tv_online.Controllers
 {
@@ -50,10 +51,26 @@ namespace tv_online.Controllers
                     
                     var urlRqst = url.Replace("'", "");
 
-                    var client = new WebClient();
-                    var text = client.DownloadString(urlRqst);
+                    //var client1 = new WebClient();
+                    //var text = client1.DownloadString(urlRqst);
+
+                    //var client2 = new RestClient(urlRqst);
+                    //// client.Authenticator = new HttpBasicAuthenticator(username, password);
+
+                    //var request2 = new RestRequest(Method.GET);
+                    ////request.AddParameter("name", "value"); // adds to POST or URL querystring based on Method
+                    ////request.AddUrlSegment("id", "123"); // replaces matching token in request.Resource
+
+                    //// easily add HTTP Headers
+                    //request2.AddHeader("ContentType", "text/html; charset=UTF-8");
+                    //request2.AddHeader("UserAgent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36");
+                    //IRestResponse response2 = client2.Execute(request2);
+                    //var content2 = response2.Content;
 
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlRqst);
+                    request.ContentType = "text/html; charset=UTF-8";
+                    request.Method = "GET";
+                    request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36";
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                     using (Stream stream = response.GetResponseStream())
                     using (StreamReader reader = new StreamReader(stream))

@@ -17,10 +17,11 @@ namespace HCrawler.CrawlSites
                 var web = new HtmlWeb();
                 var htmlDoc = web.Load(SiteUrl);
                 int index = 1;
-                var nodes = htmlDoc.DocumentNode.SelectNodes("//ul/li[@class='movie-item']/a");
+                var nodes = htmlDoc.DocumentNode.SelectNodes("//ul/div/li[@class='channel']/a/@href");
                 foreach (var node in nodes)
                 {
-                    
+                    var nodeDoc = web.Load(node.InnerText.Replace("./", "http://www.xemtvhd.com/"));
+                    var urlCaptures = nodeDoc.DocumentNode.SelectNodes("//div[@class='container']/div/div/center/div/a[1]/@name");
                 }
                 var result = 1;
                 if (result > -1)
