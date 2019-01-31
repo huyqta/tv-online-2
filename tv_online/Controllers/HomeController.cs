@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using System.Net;
 using System.IO;
 using RestSharp;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace tv_online.Controllers
 {
@@ -51,22 +53,6 @@ namespace tv_online.Controllers
                     
                     var urlRqst = url.Replace("'", "");
 
-                    //var client1 = new WebClient();
-                    //var text = client1.DownloadString(urlRqst);
-
-                    //var client2 = new RestClient(urlRqst);
-                    //// client.Authenticator = new HttpBasicAuthenticator(username, password);
-
-                    //var request2 = new RestRequest(Method.GET);
-                    ////request.AddParameter("name", "value"); // adds to POST or URL querystring based on Method
-                    ////request.AddUrlSegment("id", "123"); // replaces matching token in request.Resource
-
-                    //// easily add HTTP Headers
-                    //request2.AddHeader("ContentType", "text/html; charset=UTF-8");
-                    //request2.AddHeader("UserAgent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36");
-                    //IRestResponse response2 = client2.Execute(request2);
-                    //var content2 = response2.Content;
-
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlRqst);
                     request.ContentType = "text/html; charset=UTF-8";
                     request.Method = "GET";
@@ -76,7 +62,7 @@ namespace tv_online.Controllers
                     using (StreamReader reader = new StreamReader(stream))
                     {
                         var streamUrl = reader.ReadToEnd();
-                        if (streamUrl.Contains("http"))
+                        if (streamUrl.Contains("http") && ValidateM3U8(url))
                         {
                             model = new WatchTvModel()
                             {
@@ -92,17 +78,52 @@ namespace tv_online.Controllers
                         }
 
                     }
+
+                    //HttpWebRequest rq = (HttpWebRequest)WebRequest.Create(new Uri(urlRqst));
+
+
+                    //HttpWebResponse resp = (HttpWebResponse)rq.GetResponse();
+                    //using (Stream s = resp.GetResponseStream())
+                    //{
+                    //    using (StreamReader reader = new StreamReader(s))
+                    //    {
+                    //        var streamUrl = reader.ReadLine();
+                    //        if (streamUrl.Contains("http"))
+                    //        {
+                    //            model = new WatchTvModel()
+                    //            {
+                    //                TotalUrl = listUrls.Count,
+                    //                Url = streamUrl,
+                    //                Code = code
+                    //            };
+                    //            return View(model);
+                    //        }
+                    //        else
+                    //        {
+                    //            continue;
+                    //        }
+
+                    //    }
+                    //}
+
+                    //var task = GetDataAsync(urlRqst);
+                    //task.Wait();
+                    //var streamUrl = task.Result;
+                    //if (streamUrl.Contains("http"))
+                    //{
+                    //    model = new WatchTvModel()
+                    //    {
+                    //        TotalUrl = listUrls.Count,
+                    //        Url = streamUrl,
+                    //        Code = code
+                    //    };
+                    //    return View(model);
+                    //}
+                    //else
+                    //{
+                    //    continue;
+                    //}
                 }
-                //var urlRqst = listUrls[link.Value].Replace("'", "");
-                //if (urlRqst.Contains("id.php"))
-                //{
-                //    urlRqst = urlRqst.Replace("id.php", "http://ap.tivi12h.net/next.php");
-                //}
-                //if (urlRqst.Contains("vc.php"))
-                //{
-                //    urlRqst = urlRqst.Replace("vc.php", "http://ap.tivi12h.net/next.php");
-                //}
-                
             }
             //var textFromFile = (new WebClient()).DownloadString(model.Url);
             //var urls = textFromFile.Split("http");
@@ -113,7 +134,7 @@ namespace tv_online.Controllers
             //context.Entry<TbChannel>(channel).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             //context.SaveChanges();
             //var model = context.TbChannel.FirstOrDefault(c => c.ShortCode == code);
-            if (string.IsNullOrWhiteSpace(model.Url))
+            if (string.IsNullOrWhiteSpace(model.Url) && !string.IsNullOrWhiteSpace(channel.StreamUrl))
             {
                 foreach (var url in channel.StreamUrl.Split("|"))
                 {
@@ -157,6 +178,29 @@ namespace tv_online.Controllers
             {
                 return false;
             }
+        }
+
+        private async Task<string> GetDataAsync(string url)
+        {
+            //We will make a GET request to a really cool website...
+
+            string baseUrl = url;
+            //The 'using' will help to prevent memory leaks.
+            //Create a new instance of HttpClient
+            HttpClient client = new HttpClient();
+
+                //Setting up the response...         
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36");
+            using (HttpResponseMessage res = await client.GetAsync(baseUrl))
+            using (HttpContent content = res.Content)
+            {
+                string data = await content.ReadAsStringAsync();
+                if (data != null)
+                {
+                    return data;
+                }
+            }
+            return "nolink";
         }
     }
 }
