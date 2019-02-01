@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tv_online", "tv_online\tv_online.csproj", "{FC288748-4E52-47A7-A3B7-95014FFA2341}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tv_online", "tv_online\tv_online.csproj", "{FC288748-4E52-47A7-A3B7-95014FFA2341}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCrawler", "HCrawler\HCrawler.csproj", "{C64DCAA6-2CDA-4C0C-85F2-FE7C38A5815B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{1238B27D-1490-469D-BE0D-48DE57EC4878}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{C64DCAA6-2CDA-4C0C-85F2-FE7C38A5815B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C64DCAA6-2CDA-4C0C-85F2-FE7C38A5815B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C64DCAA6-2CDA-4C0C-85F2-FE7C38A5815B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1238B27D-1490-469D-BE0D-48DE57EC4878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1238B27D-1490-469D-BE0D-48DE57EC4878}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1238B27D-1490-469D-BE0D-48DE57EC4878}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1238B27D-1490-469D-BE0D-48DE57EC4878}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
