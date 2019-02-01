@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
-using tv_online.Models;
-using HtmlAgilityPack;
-using System.Text.RegularExpressions;
-using System.Net;
+using System;
+using System.Diagnostics;
 using System.IO;
-using RestSharp;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using tv_online.Models;
 
 namespace tv_online.Controllers
 {
