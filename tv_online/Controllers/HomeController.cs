@@ -62,7 +62,7 @@ namespace tv_online.Controllers
                     using (StreamReader reader = new StreamReader(stream))
                     {
                         var streamUrl = reader.ReadToEnd();
-                        if (streamUrl.Contains("http") && ValidateM3U8(url))
+                        if (streamUrl.Contains("http") && ValidateM3U8(streamUrl))
                         {
                             model = new WatchTvModel()
                             {
@@ -166,16 +166,20 @@ namespace tv_online.Controllers
         {
             try
             {
-                var request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "HEAD";
-                var response = (HttpWebResponse)request.GetResponse();
-                var success = response.StatusCode == HttpStatusCode.OK && response.ContentLength > 0;
+                //if (url.IndexOf("rtmp://") == 0) return true;
+                //var request = (HttpWebRequest)WebRequest.Create(url);
+                //request.Method = "HEAD";
+                //var response = (HttpWebResponse)request.GetResponse();
+                //var success = response.StatusCode == HttpStatusCode.OK && response.ContentLength > 0;
 
-                if (success) return true;
-                else return false;
+                //if (success) return true;
+                //else return false;
+
+                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                string exx = ex.Message;
                 return false;
             }
         }
