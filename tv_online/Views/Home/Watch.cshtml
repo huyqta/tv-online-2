@@ -14,18 +14,18 @@
                 </div>
             </div>
             @*<div class="row">
-                <div class="col-md-12 center-block">
-                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                        <div class="btn-group mr-2" role="group" aria-label="First group">
-                            @for (var i = 1; i <= Model.TotalUrl; i++)
-                            {
-                                //var url = listChannels[i - 1].StreamUrl;
-                                <button type="button" value="@i" class="btn btn-warning btn-link-stream">Link @i</button>
-                            }
+                    <div class="col-md-12 center-block">
+                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                                @for (var i = 1; i <= Model.TotalUrl; i++)
+                                {
+                                    //var url = listChannels[i - 1].StreamUrl;
+                                    <button type="button" value="@i" class="btn btn-warning btn-link-stream">Link @i</button>
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>*@
+                </div>*@
             <br />
             <div class="row">
                 <div class="col-md-12 center-block" align="center">
@@ -44,9 +44,8 @@
     }
 }
 
-
-<script>
-    $(function () {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.9/mediaelement-and-player.min.js"></script>
+<script>$(function () {
         //selectLink();
         var defaultUrl = $('.btn-link-stream').first().val();
         var streamUrl = $('#watch-code').val();
@@ -136,5 +135,4 @@
             }
         })
 
-    };
-</script>
+    };</script>
