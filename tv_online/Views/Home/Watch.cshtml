@@ -45,8 +45,9 @@
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.9/mediaelement-and-player.min.js"></script>
-<script>$(function () {
-        //selectLink();
+<script>
+    $(document).ready(function(){
+        // jQuery code is in here
         var defaultUrl = $('.btn-link-stream').first().val();
         var streamUrl = $('#watch-code').val();
         InitPlayer(streamUrl);
@@ -57,6 +58,18 @@
             selectLink($(this).val())
         })
     });
+    @*$(function () {
+        //selectLink();
+        var defaultUrl = $('.btn-link-stream').first().val();
+        var streamUrl = $('#watch-code').val();
+        InitPlayer(streamUrl);
+
+        $('.btn-link-stream').on('click', function () {
+            $('#player1').html();
+
+            selectLink($(this).val())
+        })
+    });*@
 
     function InitPlayer(url) {
         console.log(url);
